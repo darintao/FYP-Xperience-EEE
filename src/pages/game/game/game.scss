@@ -1,0 +1,150 @@
+page-game {
+    ion-content {
+      //background: linear-gradient(-90deg,color($colors, eeeBlueLight, base), white)!important;
+      background: linear-gradient(217deg, rgba(255, 0, 0, .2), rgba(255, 0, 0, 0) 70.71%),
+      linear-gradient(127deg, rgba(0, 255, 0, .2), rgba(0, 255, 0, 0) 70.71%),
+      linear-gradient(336deg, rgba(0, 0, 255, .2), rgba(0, 0, 255, 0) 70.71%);
+    }
+    ion-item {
+      padding-left: 5%;
+      margin-top: 10% !important;
+      margin-bottom: 10% !important;
+      padding-right: 5%;
+    }
+  
+    button[ion-fab] {
+      overflow: visible;
+      position: relative;
+      contain: layout;
+      ion-label {
+        position: absolute;
+        top: -8px;
+        right: 40px;
+  
+        color: white;
+        background-color: color($colors, eeeBlue, base);
+        line-height: 24px;
+        padding: 4px 8px;
+        border-radius: 4px;
+      }
+    }
+  
+    .groupLeaderAvatar {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      vertical-align: middle;
+    }
+  
+    .statusNumber {
+      text-align: center;
+      font-size: 0.5em;
+    }
+  
+    .puzzle {
+      margin-left: 5%;
+      width: 90%;
+      text-align: center;
+      box-sizing: border-box;
+      border-radius: 5%;
+      font-size: 1.5em !important;
+      font-family: "Times New Roman", Times, serif;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 1px 0 rgb(204, 204, 204), 0 2px 0 rgb(201, 201, 201), 0 3px 0 rgb(187, 187, 187), 0 4px 0 rgb(185, 185, 185), 0 5px 0 rgb(170, 170, 170), 0 6px 1px rgba(0, 0, 0, 0.0980392), 0 0 5px rgba(0, 0, 0, 0.0980392), 0 1px 3px rgba(0, 0, 0, 0.298039), 0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.247059), 0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.14902);
+      img {
+        -webkit-transform: rotate(-1deg);
+        border-radius: 5%;
+        box-shadow: 0 1px 0 rgb(204, 204, 204), 0 2px 0 rgb(201, 201, 201), 0 3px 0 rgb(187, 187, 187), 0 4px 0 rgb(185, 185, 185), 0 5px 0 rgb(170, 170, 170), 0 6px 1px rgba(0, 0, 0, 0.0980392), 0 0 5px rgba(0, 0, 0, 0.0980392), 0 1px 3px rgba(0, 0, 0, 0.298039), 0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.247059), 0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.14902);
+      }
+    }
+  
+    .unsolvedPuzzle {
+      background: linear-gradient(-45deg, white, #003777, black);
+      -webkit-animation: scale infinite;
+      -webkit-animation-duration: 3000ms;
+    }
+    @-webkit-keyframes moveHorizon {
+      0% {
+        -webkit-transform: translate3d(-3%, 0, 0);
+        opacity: 0.85;
+      }
+      50% {
+        -webkit-transform: translate3d(+3%, 0, 0);
+        opacity: 1;
+      }
+      100% {
+        -webkit-transform: translate3d(-3%, 0, 0);
+        opacity: 0.85;
+      }
+    }
+    @-webkit-keyframes moveVertical {
+      0% {
+        -webkit-transform: translate3d(0, -3%, 0);
+        opacity: 0.85;
+      }
+      50% {
+        -webkit-transform: translate3d(0, +3%, 0);
+        opacity: 1;
+      }
+      100% {
+        -webkit-transform: translate3d(0, -3%, 0);
+        opacity: 0.85;
+      }
+    }
+    @-webkit-keyframes scale {
+      0% {
+        -webkit-transform: scale(0.95);
+        opacity: 0.85;
+      }
+      50% {
+        -webkit-transform: scale(1.1);
+        opacity: 1;
+      }
+      100% {
+        -webkit-transform: scale(0.95);
+        opacity: 0.85;
+      }
+    }
+    @-webkit-keyframes rotate {
+      0% {
+        -webkit-transform: rotate(3deg);
+        opacity: 0.85;
+      }
+      50% {
+        -webkit-transform: rotate(-3deg);
+        opacity: 1;
+      }
+      100% {
+        -webkit-transform: rotate(3deg);
+        opacity: 0.85;
+      }
+    }
+  
+    @-webkit-keyframes moveAround {
+      0% {
+        -webkit-transform: translate3d(-3%, -3%, 0);
+        opacity: 0.85;
+      }
+      25% {
+        -webkit-transform: translate3d(-3%, +3%, 0);
+        opacity: 0.95;
+      }
+  
+      50% {
+        -webkit-transform: translate3d(+3%, +3%, 0);
+        opacity: 1;
+      }
+      75% {
+        -webkit-transform: translate3d(+3%, -3%, 0);
+        opacity: 0.95;
+      }
+  
+      100% {
+        -webkit-transform: translate3d(-3%, -3%, 0);
+        opacity: 0.85;
+      }
+    }
+  
+  }
+  

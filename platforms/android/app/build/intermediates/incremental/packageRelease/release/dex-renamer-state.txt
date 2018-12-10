@@ -1,0 +1,4 @@
+#Sun Oct 14 22:36:05 SGT 2018
+base.0=/Users/abblv/Desktop/FYP_Final/FYP_TaoLiran_V2/platforms/android/app/build/intermediates/transforms/dex/release/0
+renamed.0=classes.dex
+file.0=/Users/abblv/Desktop/FYP_Final/FYP_TaoLiran_V2/platforms/android/app/build/intermediates/transforms/dex/release/0/classes.dex

@@ -1,0 +1,48 @@
+<ion-fab>
+  <button ion-fab mini color="eeeBlueLight" (click)="back()">
+    <ion-icon name="close-circle" style="color: white!important;"></ion-icon>
+  </button>
+</ion-fab>
+<ion-content no-lines no-border no-bounce>
+
+  <ion-slides pager="true" parallax="true" padding>
+    <ion-slide>
+
+      <div class="conversation"
+           [innerHtml]="domSanitizer.
+        bypassSecurityTrustHtml
+        (conversationContent[0].replace(forwardSlash, '</span>').replace(backSlash,'<span>'))"></div>
+      <img class="prof" src="assets/imgs/prof.png">
+    </ion-slide>
+
+    <ion-slide>
+
+      <div class="conversation"
+           [innerHtml]="domSanitizer.
+        bypassSecurityTrustHtml
+        (conversationContent[1].replace(forwardSlash, '</span>').replace(backSlash,'<span>'))"></div>
+      <img class="robot" src="assets/imgs/robot.png">
+    </ion-slide>
+
+    <ion-slide>
+
+      <div class="conversation"
+           [innerHtml]="domSanitizer.
+        bypassSecurityTrustHtml
+        (conversationContent[2].replace(forwardSlash, '</span>').replace(backSlash,'<span>'))"></div>
+      <img class="prof" src="assets/imgs/prof.png">
+    </ion-slide>
+
+    <ion-slide>
+
+      <div class="conversation"
+           [innerHtml]="domSanitizer.
+        bypassSecurityTrustHtml
+        (conversationContent[3].replace(forwardSlash, '</span>').replace(backSlash,'<span>'))"></div>
+      <img class="prof" class="robot" src="assets/imgs/robot.png">
+    </ion-slide>
+  </ion-slides>
+
+</ion-content>
+
+

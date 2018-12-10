@@ -1,0 +1,77 @@
+<ion-header>
+
+  <ion-navbar color="eeeGoldLight">
+    <ion-title>Setting</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding text-center>
+
+  <ion-item *ngIf="!userProvider.firstTimeFlag&&userProvider.userTableInfo[userProvider.getUid()]!=null" no-lines>
+    <ion-avatar item-start>
+      <img src={{userProvider.userTableInfo[userProvider.getUid()].photoUrl}}>
+    </ion-avatar>
+    <h2>{{userProvider.userTableInfo[userProvider.getUid()].name}}</h2>
+    <p>You may update your profile!</p>
+    <button ion-button clear
+            item-end
+            (click)="editProfile()">
+      edit
+    </button>
+  </ion-item>
+
+  <ion-list-header *ngIf="auth.getEmail()">{{auth.getEmail()}}</ion-list-header>
+
+  <ion-item (click)="logout()" *ngIf="auth.authenticated">
+    <ion-icon name="log-out" item-left></ion-icon>
+    Log out
+  </ion-item>
+    
+  <ion-item (click)="login()" *ngIf="!auth.authenticated">
+    <ion-icon name="log-in" item-left></ion-icon>
+    Log in
+  </ion-item>
+
+  
+  <button ion-button block outline (click)="toggleContributor()">Contributor
+    &nbsp;
+    <ion-icon name="close-circle" *ngIf="showContributorFlag"></ion-icon>
+  </button>
+  <div *ngIf="showContributorFlag" style="text-align: center;">
+    <h5>Version:1.0.1</h5>
+    <h6>
+      Supervisor: Prof.Shum Ping
+    </h6>
+    <h6>
+      Puzzle design: Cherie & Gloria
+    </h6>
+    <h6>
+      Logo design: Tao liran
+    </h6>
+    <h6 (click)="adminOption()">
+      Programmer: Tao Liran
+    </h6>
+    <h6>
+      Main framework used: Ionic 3.0, Firebase, AngularFire 2
+    </h6>
+    <h6>
+      Email: TAOL0005@e.ntu.edu.sg
+    </h6>
+  </div>
+  <div class="spacer buttonSpacer"></div>
+  
+  <!-- <ion-item (click)="logout()" *ngIf="auth.authenticated">
+    <ion-icon name="log-out" item-left></ion-icon>
+    Log out
+  </ion-item> -->
+    
+  <ion-item (click)="login()" *ngIf="!auth.authenticated">
+    <ion-icon name="log-in" item-left></ion-icon>
+    Log in
+  </ion-item>
+
+  <img class="eeeLogo" src="assets/imgs/eeeLogoGoldRect.png">
+  <!--../../-->
+</ion-content>

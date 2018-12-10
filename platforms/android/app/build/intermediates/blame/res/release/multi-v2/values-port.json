@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/abblv/Desktop/FYP_Final/FYP_TaoLiran_V2/platforms/android/app/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-port/values-port.xml",
+            "map": [
+                {
+                    "source": "/Users/abblv/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/82d39a6c350f5bb3eada3440a987f05c/res/values-port/values-port.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "55",
+                        "endOffsets": "106"
+                    }
+                }
+            ]
+        }
+    ]
+}

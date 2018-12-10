@@ -1,0 +1,22 @@
+canvas-draw {
+
+    height: 100%;
+    width: 100%;
+    display: block;
+    background: rgba(0, 0, 0, 0.7);
+  
+    #top-toolbar {
+      position: absolute;
+      top: 0;
+    }
+  
+    #bottom-toolbar {
+      position: absolute;
+      bottom: 0;
+      ion-icon {
+        color: white !important;
+      }
+    }
+  
+  }
+  

@@ -1,0 +1,56 @@
+page-finish {
+    .back {
+      position: fixed;
+      top: 2%;
+      left: 2%;
+      color: white !important;
+    }
+    span {
+      color: color($colors, eeeOrange, base);
+    }
+    ion-slides {
+      background-image: url("../assets/imgs/introBg.jpeg");
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      background-color: color($colors, eeeBlueLight, base);
+    }
+    .conversation {
+      padding: 5px;
+      color: white;
+      font-size: 1.05em;
+      background-color: color($colors, eeeBlueLight, base);
+      border-radius: 3%;
+      box-shadow: 0 0 6px color($colors, eeeBlue, base);
+      margin-top: 10%;
+      width: 80%;
+      margin-left: 10%;
+      font-family: "Times New Roman", Times, serif;
+      font-weight: bold;
+      text-shadow: 1px 1px color($colors, eeeBlue, base);
+    }
+    .adven{
+      width: 20%;
+      position: fixed;
+      left: 5%;
+      bottom: 10%;
+  
+    }
+    .chest {
+      width: 20%;
+      position: fixed;
+      right: 5%;
+      bottom: 10%;
+    }
+    @keyframes moveVertical {
+      0% {
+        transform: translate3d(0, -3%, 0);
+      }
+      50% {
+        transform: translate3d(0, +3%, 0);
+      }
+      100% {
+        transform: translate3d(0, -3%, 0);
+      }
+    }
+  }
+  

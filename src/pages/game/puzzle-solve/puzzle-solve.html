@@ -1,0 +1,208 @@
+<ion-header>
+
+  <ion-navbar color="eeeGoldLight">
+    <ion-title *ngIf="!userProvider.firebaseConnection">
+      <ion-spinner name="bubbles"></ion-spinner>
+      Reconnecting
+    </ion-title>
+    <ion-title *ngIf="userProvider.firebaseConnection&&statusProvider.puzzleStatus[puzzleId].solved==false">
+      Solve the puzzle!
+    </ion-title>
+    <ion-title *ngIf="userProvider.firebaseConnection&&statusProvider.puzzleStatus[puzzleId].solved==true">
+      Solved puzzle
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="showOptions()">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content #content style="text-align: center" padding (ionScrollEnd)="onScrollEnd()"
+             (ionScrollStart)="onScrollStart()" (ionScroll)="onScroll()">
+  <!--<div class="background-wrap">-->
+  <!--<div class="bubble x1"></div>-->
+  <!--<div class="bubble x2"></div>-->
+  <!--<div class="bubble x3"></div>-->
+  <!--<div class="bubble x4"></div>-->
+  <!--<div class="bubble x5"></div>-->
+  <!--<div class="bubble x6"></div>-->
+  <!--<div class="bubble x7"></div>-->
+  <!--<div class="bubble x8"></div>-->
+  <!--<div class="bubble x9"></div>-->
+  <!--<div class="bubble x10"></div>-->
+  <!--</div>-->
+  <ion-fab #fab right bottom ion-fixed>
+    <button ion-fab mini color="eeeGoldLight">
+      <ion-icon name="arrow-dropup"></ion-icon>
+    </button>
+    <ion-fab-list side="top">
+      <button ion-fab (click)="viewIntro()" color="eeeGoldLight">
+        <ion-icon name="logo-freebsd-devil"></ion-icon>
+        <ion-label>Introduction</ion-label>
+      </button>
+      <button ion-fab (click)="viewMap()" color="eeeGoldLight">
+        <ion-icon ios="ios-compass" md="md-compass"></ion-icon>
+        <ion-label>Track me</ion-label>
+      </button>
+      <button ion-fab (click)="viewTable()" color="eeeGoldLight">
+        <ion-icon ios="ios-flask" md="md-flask"></ion-icon>
+        <ion-label>Periodic table</ion-label>
+      </button>
+      <button ion-fab (click)="viewRank()" color="eeeGoldLight">
+        <ion-icon ios="ios-podium" md="md-podium"></ion-icon>
+        <ion-label>Team rank</ion-label>
+      </button>
+      <button mini ion-fab (click)="showCanvas()" color="eeeGoldLight">
+        <ion-icon ios="ios-color-palette" md="md-color-palette"></ion-icon>
+        <ion-label>Doodling</ion-label>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
+  <ion-toolbar *ngIf="settingProvider.showTimeScoreFlag" ion-fixed color="eeeGoldLight">
+    <ion-grid class="fontBlue">
+      <ion-row>
+        <ion-col col-6 *ngIf="statusProvider.groupStatus.endTime==null||statusProvider.groupStatus.endTime==''">
+          <ion-icon padding-right ios="ios-alarm" md="md-alarm"></ion-icon>
+          {{settingProvider.time-statusProvider.groupStatus.startTime|date:'HH:mm:ss':'UTC'}}
+        </ion-col>
+        <ion-col col-6 *ngIf="statusProvider.groupStatus.endTime!=null&&statusProvider.groupStatus.endTime!=''">
+          <ion-icon padding-right ios="ios-alarm" md="md-alarm"></ion-icon>
+          {{statusProvider.groupStatus.endTime-statusProvider.groupStatus.startTime|date:'HH:mm:ss':'UTC'}}
+        </ion-col>
+        <ion-col col-5>
+          <ion-icon padding-right ios="ios-clipboard" md="md-clipboard"></ion-icon>
+          {{statusProvider.groupStatus.point}}
+        </ion-col>
+        <ion-col col-1>
+          <ion-icon padding-right name="close-circle" (click)="hideTimeScore()"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="statusProvider.groupStatus.endTime==null
+                        ||statusProvider.groupStatus.endTime==''">
+        <div col-1>
+        </div>
+        <div class="progress-outer" col-9>
+          <div class="progress-inner"
+               [style.width]="statusProvider.puzzleStatusKeys.indexOf(statusProvider.firstUnsolved)/statusProvider.puzzleStatusKeys.length*100 + '%'">
+          </div>
+        </div>
+        <div col-2 class="statusNumber">
+          {{statusProvider.puzzleStatusKeys.indexOf(statusProvider.firstUnsolved)}}/{{statusProvider.puzzleStatusKeys.length}}
+        </div>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+
+  <div class="spacer headSpacer"></div>
+
+  <h2 style="text-align: center;">{{gameProvider.puzzleDetails[puzzleId].title}}</h2>
+
+  <h5 style="text-align: center;"
+      [innerHtml]="domSanitizer.
+        bypassSecurityTrustHtml
+        (gameProvider.puzzleDetails[puzzleId].puzzleContent.replace(forwardSlash, '</span>').replace(backSlash,'<span>'))">
+
+  </h5>
+  <img src='{{gameProvider.puzzleDetails[puzzleId].photoUrl}}' (click)="openImage()">
+
+  <div class="spacer buttonSpacer"></div>
+  <h5 style="text-align: center;"
+      *ngIf="statusProvider.puzzleStatus[puzzleId].hint1==false
+            &&gameProvider.puzzleDetails[puzzleId].hint1!=null
+            &&gameProvider.puzzleDetails[puzzleId].hint1!=''" class="importantText">
+    Try to save point for hard ones!
+  </h5>
+  <button ion-button [disabled]="lock"
+          class="in-progress"
+          *ngIf="statusProvider.puzzleStatus[puzzleId].hint1==false
+            &&gameProvider.puzzleDetails[puzzleId].hint1!=null
+            &&gameProvider.puzzleDetails[puzzleId].hint1!=''"
+          block outline (click)="viewHint1()">Hint(-20)
+  </button>
+  <h5 *ngIf="statusProvider.puzzleStatus[puzzleId].hint1==true" style="text-align: left;">Hint
+    1: {{gameProvider.puzzleDetails[puzzleId].hint1}}</h5>
+  <div *ngIf="statusProvider.puzzleStatus[puzzleId].hint1==false
+            &&gameProvider.puzzleDetails[puzzleId].hint1!=null
+            &&gameProvider.puzzleDetails[puzzleId].hint1!=''"
+       class="spacer buttonSpacer"></div>
+  <button ion-button [disabled]="lock"
+          *ngIf="statusProvider.puzzleStatus[puzzleId].hint2==false&&statusProvider.puzzleStatus[puzzleId].hint1==true
+            &&gameProvider.puzzleDetails[puzzleId].hint2!=null
+            &&gameProvider.puzzleDetails[puzzleId].hint2!=''"
+          block outline (click)="viewHint2()">View More Hint(-20)
+  </button>
+  <h5 *ngIf="statusProvider.puzzleStatus[puzzleId].hint2==true" style="text-align: left;">Hint
+    2: {{gameProvider.puzzleDetails[puzzleId].hint2}}</h5>
+  <!--<div class="spacer buttonSpacer"></div>-->
+  <div *ngIf="statusProvider.puzzleStatus[puzzleId].solved==false">
+    <ion-item>
+      <!--<ion-label color="primary" floating>Answer:</ion-label>-->
+      <ion-input type="text" placeholder="{{placeHolderText}}"
+                 [(ngModel)]="answerTemp" clearInput (ionFocus)="answerOnfocus()"></ion-input>
+      <ion-icon *ngIf="isIos()&&!micActivated" item-end name="mic" (click)="openMicChanel()"></ion-icon>
+      <ion-icon *ngIf="isIos()&&micActivated" item-end name="mic-off" (click)="closeMicChanel()"></ion-icon>
+    </ion-item>
+    <button ion-button round outline *ngIf="micActivated&&!isRecording" (click)="startListeningMic()">Click to record
+    </button>
+    <h5 *ngIf="micActivated&&isRecording">I am listening...
+      <div class="timer">
+        <div class="mask"></div>
+      </div>
+    </h5>
+    <button ion-button round outline *ngIf="micActivated&&isRecording" (click)="stopListeningMic()">Click to stop
+    </button>
+    <h5 *ngIf="(micActivated&&!isRecording)&&(matches==null||matches.length<0)">No match yet</h5>
+    <ion-card *ngIf="micActivated&&!isRecording&&matches!=null&&matches.length>=0" text-center>
+      <ion-card-header>Select a match below</ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let match of matches" (click)="selectMatch(match)" text-center>
+            {{ match }}
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+    <button style="margin-top: 5%" ion-button block outline (click)="answerPuzzle()">Submit (+10)</button>
+  </div>
+  <div padding *ngIf="statusProvider.puzzleStatus[puzzleId].solved==true">
+    <h5 style="text-align: center;">Puzzle has been solved,
+      answer: </h5>
+    <h3>
+      {{gameProvider.puzzleDetails[puzzleId].answer}}
+    </h3>
+    <h5 *ngIf="statusProvider.puzzleStatus[puzzleId].solvedBy!=null
+    &&userProvider.userTableInfo[statusProvider.puzzleStatus[puzzleId].solvedBy]!=null"
+        style="text-align: center;">Solved by:
+    </h5>
+    <img class="solvedByAvatar"
+         *ngIf="statusProvider.puzzleStatus[puzzleId].solvedBy!=null
+    &&userProvider.userTableInfo[statusProvider.puzzleStatus[puzzleId].solvedBy]!=null"
+         src={{userProvider.userTableInfo[statusProvider.puzzleStatus[puzzleId].solvedBy].photoUrl}}>
+    <span class="shadowText" *ngIf="statusProvider.puzzleStatus[puzzleId].solvedBy!=null
+    &&userProvider.userTableInfo[statusProvider.puzzleStatus[puzzleId].solvedBy]!=null">
+      {{userProvider.userTableInfo[statusProvider.puzzleStatus[puzzleId].solvedBy].name}}</span>
+
+    <h5 style="text-align: center;" *ngIf="gameProvider.puzzleDetails[puzzleId].memory!=null
+              &&gameProvider.puzzleDetails[puzzleId].memory!=''">
+      <ion-icon name="happy"></ion-icon>
+      Memory piece has been unlocked:
+    </h5>
+    <h5 class="shadowText"
+        [innerHtml]="domSanitizer.
+        bypassSecurityTrustHtml
+        (gameProvider.puzzleDetails[puzzleId].memory.replace(forwardSlash, '</span>').replace(backSlash,'<span>'))">
+    </h5>
+  </div>
+  <div class="spacer footSpacer"></div>
+  <div ion-fixed style="width: 100%;top:90%;text-align: center;"
+       *ngIf="onScrollFlag
+       &&!statusProvider.puzzleStatus[puzzleId].solved">
+    <h5>
+      <ion-icon name="arrow-down"></ion-icon>
+      Enter answer at bottom!
+    </h5>
+  </div>
+</ion-content>
